@@ -68,8 +68,8 @@ function randomImagePositions() {
         let left
         let overlap = true
         while (overlap) {
-            bottom = getRandomInt(0, 90)
-            left = getRandomInt(0, 70)
+            bottom = getRandomInt(0, 70)
+            left = getRandomInt(0, 90)
             overlap = false
 
             for (let j = 0; j < i; j++) {
