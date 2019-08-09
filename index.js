@@ -52,6 +52,40 @@ const images = [
 
 const foundItems = []
 
+const user = {
+    name: ""
+}
+
+function initialize() {
+    randomImagePositions()
+    addAllAnimalImages()
+    updateItems()
+}
+
+function randomImagePositions() {
+    for (let i = 0; i < images.length; i++) {
+        let bottom
+        let left
+        let overlap = true
+        while (overlap) {
+            bottom = getRandomInt(0, 30)
+            left = getRandomInt(0, 60)
+            overlap = false
+
+            for (let j = 0; j < i; j++) {
+                if (bottom >= images[j].bottom - 7 && bottom <= images[j].bottom + 7) {
+                    if (left >= images[j].left - 7 && left <= images[j].left + 7) {
+                        overlap = true
+                        break
+                    }
+                }
+            }
+        }
+        images[i].bottom = bottom
+        images[i].left = left
+    }
+}
+
 function getRandomInt(min, max) {
     let rng = Math.random() * (1 + max - min)
     rng = Math.floor(rng) - min
@@ -61,12 +95,12 @@ function getRandomInt(min, max) {
 function addAnimalImage(image) {
     const main = document.getElementById("searchField")
     const img = document.createElement("img")
+    img.classList.add("animalImage")
     img.alt = image.name
     img.src = image.src
-    img.classList.add("animalImage")
-    img.style.bottom = `${getRandomInt(0, 30)}rem`
-    img.style.left = `${getRandomInt(0, 60)}rem`
-    img.addEventListener("click", function() {addToFoundItems(this)})
+    img.style.bottom = `${image.bottom}rem`
+    img.style.left = `${image.left}rem`
+    img.addEventListener("click", function () { addToFoundItems(this) })
     main.appendChild(img)
 }
 
@@ -76,13 +110,70 @@ function addAllAnimalImages() {
     }
 }
 
-function initialize() {
-    addAllAnimalImages()
-}
-
 function addToFoundItems(img) {
     if (!foundItems.includes(img)) {
         foundItems.push(img)
-        console.log(foundItems)
+        displayInFooter()
+        updateItems()
+        checkVictory()
+    }
+}
+
+function displayInFooter() {
+    const foundItemsDiv = document.getElementById('foundItems')
+    for (let i = 0; i < foundItems.length; i++) {
+        let img = foundItems[i]
+        img.classList.remove("animalImage")
+        img.classList.add("foundImage")
+        img.style.bottom = ""
+        img.style.left = ""
+        foundItemsDiv.appendChild(img)
+    }
+}
+
+function checkVictory() {
+    if (images.length == foundItems.length) {
+        if (user.name) {
+            alert(`Congratulations ${user.name}!\n\nYou have found all ${images.length} images!`)
+        }
+        else {
+            alert(`Congratulations!\n\nYou have found all ${images.length} images!`)
+        }
+    }
+}
+
+function submitName() {
+    let name = document.getElementById("name").value
+    name = validateName(name)
+    if (!name) {
+        return
+    }
+    user.name = name;
+    updateItems()
+    const form = document.getElementById("nameForm")
+    form.classList.add("hide")
+}
+
+function validateName(name) {
+
+    name = name.trim()
+
+    if (name == "") {
+        alert("Please enter your name!")
+        return
+    }
+
+    name = name[0].toUpperCase() + name.slice(1)
+    return name
+}
+
+function updateItems() {
+    const foundTitle = document.getElementById("foundTitle")
+
+    if (user.name) {
+        foundTitle.innerText = `${user.name} has found ${foundItems.length} of ${images.length} animals!`
+    }
+    else {
+        foundTitle.innerText = `You have found ${foundItems.length} of ${images.length} animals!`
     }
 }
