@@ -14,21 +14,25 @@
 
     </main>
     <footer>
-        <form id="nameForm" onsubmit="submitName(); return false">
-            <div class="formSection">
-                <label for="name">Name:</label>
-                <input type="text" id="name">
+        <div class="footerData">
+            <div class="footerContents">
+                <audio autoplay="autoplay" loop="loop" controls="controls">
+                    <source src="oceans.mp3" type="audio/mpeg">
+                </audio>
             </div>
-            <div class="button">
-                <button type="default">Submit your name</button>
+            <div class="footerContents">
+                <h1 id="foundTitle">Items</h1>
             </div>
-        </form>
-        <h1 id="foundTitle">Items</h1>
+            <div class="footerContents">
+                <form class="footerContents" id="nameForm" onsubmit="submitName(); return false">
+                    <label for="name">Your name:</label>
+                    <input type="text" id="name">
+                    <button type="default">Submit your name</button>
+                </form>
+            </div>
+        </div>
         <div id="foundItems"></div>
     </footer>
-    <audio autoplay="autoplay" loop="loop">
-        <source src="oceans.mp3" type="audio/mpeg">
-    </audio>
 </body>
 
 </html>

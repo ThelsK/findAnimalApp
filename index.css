@@ -1,5 +1,10 @@
+body {
+    margin: 0;
+}
+
 main {
     background-image: url("https://i2.wp.com/www.therelativeobserver.com/wp-content/uploads/2018/08/jungle.jpg");
+    background-size: 100% 100%;
     width: 100%;
     height: 80vh;
     position: relative;
@@ -10,13 +15,28 @@ footer {
     position: relative;
 }
 
+.footerData {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+}
+
+.footerContents {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
 .animalImage {
-    height: 5rem;
+    max-height: 10vh;
+    max-width: 10vw;
     position: absolute;
 }
 
 .foundImage {
-    height: 5rem;
+    max-height: 10vh;
+    max-width: 10vw;
     position: relative;
 }
 
