@@ -50,6 +50,8 @@ const images = [
 
 ]
 
+const foundItems = []
+
 function getRandomInt(min, max) {
     let rng = Math.random() * (1 + max - min)
     rng = Math.floor(rng) - min
@@ -64,6 +66,7 @@ function addAnimalImage(image) {
     img.classList.add("animalImage")
     img.style.bottom = `${getRandomInt(0, 30)}rem`
     img.style.left = `${getRandomInt(0, 60)}rem`
+    img.addEventListener("click", function() {addToFoundItems(this)})
     main.appendChild(img)
 }
 
@@ -75,4 +78,11 @@ function addAllAnimalImages() {
 
 function initialize() {
     addAllAnimalImages()
+}
+
+function addToFoundItems(img) {
+    if (!foundItems.includes(img)) {
+        foundItems.push(img)
+        console.log(foundItems)
+    }
 }
