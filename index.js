@@ -68,21 +68,22 @@ function randomImagePositions() {
         let left
         let overlap = true
         while (overlap) {
-            bottom = getRandomInt(0, 30)
-            left = getRandomInt(0, 60)
+            bottom = getRandomInt(0, 90)
+            left = getRandomInt(0, 70)
             overlap = false
 
             for (let j = 0; j < i; j++) {
-                if (bottom >= images[j].bottom - 7 && bottom <= images[j].bottom + 7) {
-                    if (left >= images[j].left - 7 && left <= images[j].left + 7) {
+                if (bottom >= images[j].bottom[0] - 5 && bottom <= images[j].bottom[0] + 5) {
+                    if (left >= images[j].left[0] - 5 && left <= images[j].left[0] + 5) {
                         overlap = true
-                        break
                     }
                 }
             }
         }
-        images[i].bottom = bottom
-        images[i].left = left
+        images[i].bottom = []
+        images[i].bottom[0] = bottom
+        images[i].left = []
+        images[i].left[0] = left
     }
 }
 
@@ -98,8 +99,8 @@ function addAnimalImage(image) {
     img.classList.add("animalImage")
     img.alt = image.name
     img.src = image.src
-    img.style.bottom = `${image.bottom}rem`
-    img.style.left = `${image.left}rem`
+    img.style.bottom = `${image.bottom[0]}vh`
+    img.style.left = `${image.left[0]}vw`
     img.addEventListener("click", function () { addToFoundItems(this) })
     main.appendChild(img)
 }
